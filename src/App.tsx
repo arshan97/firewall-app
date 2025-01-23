@@ -46,7 +46,16 @@ const App = () => {
       {/* Header */}
       <header className="bg-white shadow">
         <div className="container mx-auto flex items-center justify-between p-4">
-          <h1 className="text-xl font-semibold">DBS Firewall Portal</h1>
+          <div className="flex gap-2 items-center">
+            <img
+              src="/src/assets/logo.png"
+              className="rounded-md"
+              alt="logo"
+              width={50}
+              height={50}
+            />
+            <h1 className="text-xl font-semibold">Firewall Portal</h1>
+          </div>
           {/* <div className="flex items-center">
             <FaUserCircle size={24} className="mr-2" />
             <select className="border border-gray-300 rounded-md p-1">
@@ -222,73 +231,59 @@ const App = () => {
       )}
 
       {activeTab === "trackRequests" && (
-        <div className="min-h-screen container mx-auto mt-8 p-4 bg-white shadow rounded-md">
-          <h2 className="text-xl font-semibold mb-4">Track Requests</h2>
-
+        <main className="container mx-auto mt-8 p-4 mb-80">
           {/* Search and Filters */}
-          <div className="flex space-x-4 mb-4">
-            <input
-              type="text"
-              placeholder="Search requests..."
-              className="px-4 py-2 border rounded w-full"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <select
-              className="px-4 py-2 border rounded"
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-            >
-              <option>All Status</option>
-              <option>Auto-Accepted</option>
-              <option>Pending</option>
-              <option>Rejected</option>
-            </select>
+          <div className="flex justify-between items-baseline p-6 bg-white shadow rounded-lg">
+            <h2 className="text-xl font-semibold mb-4">Request Tracking</h2>
+
+            <div className="flex gap-4">
+              <input
+                type="text"
+                placeholder="Search requests..."
+                className="px-4 py-2 border rounded w-full"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <select
+                className="px-4 py-2 border rounded"
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option>All Status</option>
+                <option>Auto-Accepted</option>
+                <option>Pending</option>
+                <option>Rejected</option>
+              </select>
+            </div>
           </div>
 
           {/* Requests Table */}
-          <table className="min-w-full border-collapse border border-gray-300">
-            <thead>
-              <tr>
-                <th className="border border-gray-300 px-4 py-2">Request ID</th>
-                <th className="border border-gray-300 px-4 py-2">
-                  Project Name
-                </th>
-                <th className="border border-gray-300 px-4 py-2">
-                  Submitted Date
-                </th>
-                <th className="border border-gray-300 px-4 py-2">Status</th>
-                <th className="border border-gray-300 px-4 py-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+          <div className="p-6 bg-white shadow rounded-lg mt-4">
+            <div className="flex bg-gray-100">
+              <div className="px-4 py-2 w-full">Request ID</div>
+              <div className="px-4 py-2 w-full">Project Name</div>
+              <div className="px-4 py-2 w-full">Submitted Date</div>
+              <div className="px-4 py-2 w-full">Status</div>
+            </div>
+            <div>
               {filteredRequests.map(
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (request: any) => (
-                  <tr key={request.id}>
-                    <td className="border border-gray-300 px-4 py-2">
-                      {request.id}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                  <div key={request.id} className="flex">
+                    <div className="px-4 py-2 w-full">{request.id}</div>
+                    <div className="px-4 py-2 w-full">
                       {request.projectName}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    </div>
+                    <div className="px-4 py-2 w-full">
                       {request.submittedDate}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      {request.status}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-2">
-                      <button className="text-blue-500 hover:underline">
-                        View
-                      </button>
-                    </td>
-                  </tr>
+                    </div>
+                    <div className="px-4 py-2 w-full">{request.status}</div>
+                  </div>
                 )
               )}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </div>
+        </main>
       )}
 
       {/* Footer */}
